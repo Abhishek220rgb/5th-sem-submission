@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101126">
+<title>Sem 5 • Submission Studio</title>
+<style>
+:root{--bg:#0b0c1a;--panel:#15172b;--text:#f7f7ff;--muted:#a8aac5;--line:rgba(255,255,255,.12);--accent:#9c8cff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 15% 0%,#25204c 0,transparent 38%),radial-gradient(ellipse at 90% 40%,#102f46 0,transparent 34%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid white;outline-offset:3px}
+.app{max-width:850px;margin:auto;padding:20px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:15px;background:linear-gradient(135deg,#9d7bff,#54e5d2);display:grid;place-items:center;color:#101126;font-weight:900;font-size:20px;box-shadow:0 8px 25px #8f7cff40}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:10px;color:#b5b7d2;font-weight:800}.brand h1{font-size:17px;margin:3px 0 0;letter-spacing:-.04em}
+.pill{border:1px solid var(--line);border-radius:999px;padding:8px 11px;font-size:11px;color:#c9c9e0;background:#ffffff08;white-space:nowrap}
+.hero{margin:20px 0 18px}.hero h2{font-size:clamp(30px,7vw,48px);line-height:1.02;letter-spacing:-.06em;margin:0 0 12px;max-width:600px}.gradient-text{background:linear-gradient(90deg,#b6a7ff,#71eee0,#ffd18a);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:14px;line-height:1.6;max-width:580px;margin:0}
+.topstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}.stat{background:#ffffff08;border:1px solid var(--line);padding:13px;border-radius:17px;min-width:0}.stat b{display:block;font-size:24px;letter-spacing:-.05em}.stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.progress-track{height:5px;border-radius:99px;background:#ffffff12;overflow:hidden;margin-top:9px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#67e8d5);border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.navline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 12px}.navline h3{font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:#c7c8df;margin:0}.arrows{display:flex;gap:7px}.iconbtn{width:39px;height:39px;border:1px solid var(--line);border-radius:13px;background:#ffffff08;color:white;font-size:18px}.iconbtn:disabled{opacity:.3;cursor:not-allowed}
+.subject-card{--accent:#9c8cff;position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent),transparent 55%);border-radius:27px;background:linear-gradient(140deg,color-mix(in srgb,var(--accent),transparent 88%),transparent 55%),linear-gradient(160deg,#1a1b34,#121326 80%);padding:23px;box-shadow:0 20px 60px #0003;animation:arrive .35s ease both}
+.subject-card:before{content:"";position:absolute;width:210px;height:210px;border-radius:50%;background:var(--accent);filter:blur(100px);opacity:.12;right:-75px;top:-90px;pointer-events:none}
+@keyframes arrive{from{opacity:.5;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;position:relative}.subject-icon{width:51px;height:51px;border-radius:17px;background:color-mix(in srgb,var(--accent),transparent 83%);border:1px solid color-mix(in srgb,var(--accent),transparent 52%);display:grid;place-items:center;font-size:25px}.subject-code{font-size:11px;letter-spacing:.15em;color:var(--accent);font-weight:900;margin:3px 0 7px}.subject-name{font-size:clamp(26px,6vw,36px);line-height:1;margin:0;letter-spacing:-.06em}.subject-subtitle{font-size:12px;color:var(--muted);margin:9px 0 0}.status{border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:#ffffff0d;border:1px solid var(--line);white-space:nowrap}.status.editing{color:#ffd88a;background:#ffd88a12;border-color:#ffd88a35}.status.saved{color:#72f0c8;background:#72f0c812;border-color:#72f0c835}
+.card-progress{margin:22px 0 19px;position:relative}.progress-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;color:#d8d9ee}.progress-meta strong{color:white;font-size:14px}.card-progress .progress-track{height:8px;background:#ffffff10}
+.section-label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px;font-size:12px;font-weight:800}.section-label span:last-child{font-size:10px;color:var(--muted);font-weight:600}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.check-item{position:relative;display:flex;align-items:center;gap:10px;min-width:0;min-height:47px;padding:11px;border-radius:14px;border:1px solid var(--line);background:#ffffff06;transition:transform .18s,border-color .18s,background .18s}
+.check-item:active{transform:scale(.985)}.check-item input{appearance:none;flex:0 0 20px;width:20px;height:20px;margin:0;border-radius:7px;border:1.5px solid #777a9c;background:#ffffff05;display:grid;place-items:center;cursor:pointer}
+.check-item input:checked{background:var(--accent);border-color:var(--accent)}.check-item input:checked:after{content:"✓";color:#111126;font-weight:1000;font-size:14px}
+.check-item .item-title{font-size:12px;font-weight:700;line-height:1.25}.check-item .item-sub{display:block;color:var(--muted);font-size:10px;margin-top:3px;font-weight:500}
+.check-item:has(input:checked){background:color-mix(in srgb,var(--accent),transparent 91%);border-color:color-mix(in srgb,var(--accent),transparent 55%)}
+.check-item input:disabled{cursor:default}.check-item:has(input:disabled){cursor:default}
+.actions{display:flex;gap:9px;margin-top:23px;position:relative}.btn{border:0;border-radius:14px;padding:13px 16px;font-size:12px;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .18s,filter .18s}.btn:active{transform:scale(.98)}.btn-primary{flex:1;color:#111126;background:linear-gradient(100deg,var(--accent),color-mix(in srgb,var(--accent),white 25%));box-shadow:0 8px 25px color-mix(in srgb,var(--accent),transparent 80%)}.btn-secondary{background:#ffffff0c;border:1px solid var(--line);color:white}.btn:disabled{opacity:.35;cursor:not-allowed}
+.lock-note{font-size:11px;color:var(--muted);line-height:1.5;margin:12px 0 0;min-height:16px}
+.dots{display:flex;justify-content:center;gap:7px;margin:15px 0 4px}.dot{width:7px;height:7px;border-radius:99px;border:0;padding:0;background:#ffffff35;transition:all .25s}.dot.active{width:24px;background:var(--accent)}
+.overall-btn{width:100%;margin-top:22px;background:linear-gradient(100deg,#e6ddff,#9c8cff);color:#17142d;padding:16px;border-radius:17px;box-shadow:0 10px 35px #8c79ff25}.overall-btn .big{font-size:14px;display:block}.overall-btn .small{font-size:10px;display:block;margin-top:4px;opacity:.7}
+.footer{text-align:center;color:#777b9c;font-size:10px;margin-top:23px;letter-spacing:.04em}
+.modal{position:fixed;inset:0;background:#070813dc;backdrop-filter:blur(12px);z-index:10;display:none;overflow-y:auto;padding:18px}.modal.open{display:block;animation:fade .2s ease}@keyframes fade{from{opacity:0}to{opacity:1}}.modal-inner{max-width:760px;margin:20px auto 40px}.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px}.modal-head h2{font-size:clamp(28px,7vw,40px);letter-spacing:-.06em;margin:5px 0}.modal-head p{color:var(--muted);font-size:12px;line-height:1.5;margin:0}.closebtn{width:40px;height:40px;flex:0 0 40px;border:1px solid var(--line);background:#ffffff0c;border-radius:13px;color:white;font-size:20px}
+.overall-banner{padding:18px;border:1px solid #a99aff55;border-radius:21px;background:linear-gradient(120deg,#a18bff25,#65ead414);margin-bottom:15px}.overall-banner .number{font-size:38px;letter-spacing:-.07em;font-weight:900}.overall-banner p{margin:4px 0 0;font-size:12px;color:#c2c3dc}.overview-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.overview-card{--accent:#9c8cff;text-align:left;border:1px solid color-mix(in srgb,var(--accent),transparent 65%);border-radius:18px;padding:15px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent),transparent 90%),#ffffff04);color:white;min-width:0}.overview-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.overview-icon{font-size:19px}.overview-percent{font-size:18px;font-weight:900;letter-spacing:-.04em}.overview-card h3{font-size:14px;margin:9px 0 3px}.overview-card p{font-size:10px;color:var(--muted);margin:0}.overview-card .progress-track{margin-top:13px;height:6px}.overview-status{display:inline-block;font-size:9px;margin-top:11px;padding:5px 8px;border-radius:999px;background:#ffffff0c;color:#c6c7df}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:20;background:#f4f0ff;color:#18132c;border-radius:13px;padding:12px 16px;font-size:12px;font-weight:800;box-shadow:0 12px 40px #0005;transition:all .25s;max-width:calc(100vw - 32px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:440px){.app{padding:16px 12px 30px}.subject-card{padding:17px;border-radius:23px}.check-grid{gap:7px}.check-item{padding:9px;gap:8px}.check-item .item-title{font-size:11px}.card-head{gap:10px}.status{font-size:9px;padding:6px 8px}.overview-list{grid-template-columns:1fr}.topstats{gap:7px}.stat{padding:11px}.stat b{font-size:21px}.brand h1{font-size:15px}.pill{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">S5</div><div><div class="eyebrow">E&amp;TC • Semester 05</div><h1>Submission Studio</h1></div></div>
+    <div class="pill">✦ YOUR SEMESTER, ORGANIZED</div>
+  </header>
+  <section class="hero">
+    <h2>Small steps.<br><span class="gradient-text">Semester complete.</span></h2>
+    <p>Your personal assignment and practical tracker. Check off what you've finished, save each subject, and see the whole semester come together.</p>
+  </section>
+  <section class="topstats" aria-label="Semester summary">
+    <div class="stat"><b id="statDone">0</b><span>Items completed</span></div>
+    <div class="stat"><b id="statTotal">56</b><span>Total checklist items</span></div>
+    <div class="stat"><b id="statPercent">0%</b><span>Semester progress</span><div class="progress-track"><div class="progress-fill" id="topProgress"></div></div></div>
+  </section>
+  <div class="navline"><h3 id="slideCount">SUBJECT 01 / 06</h3><div class="arrows"><button class="iconbtn" id="prevBtn" aria-label="Previous subject">←</button><button class="iconbtn" id="nextBtn" aria-label="Next subject">→</button></div></div>
+  <main id="subjectCard" class="subject-card" aria-live="polite"></main>
+  <div class="dots" id="dots" aria-label="Choose subject slide"></div>
+  <button class="btn overall-btn" id="overallBtn"><span><span class="big">▦ &nbsp; Overall Submission</span><span class="small">View all 6 subjects and your full completion status</span></span><span aria-hidden="true">↗</span></button>
+  <div class="footer">MADE FOR YOUR SEMESTER • PROGRESS SAVES IN THIS BROWSER</div>
+</div>
+
+<div class="modal" id="overallModal" role="dialog" aria-modal="true" aria-labelledby="overallTitle">
+  <div class="modal-inner">
+    <div class="modal-head"><div><div class="eyebrow">SEMESTER AT A GLANCE</div><h2 id="overallTitle">Overall submission</h2><p>Every assignment and practical, all in one place. Tap a subject to open its slide.</p></div><button class="closebtn" id="closeOverall" aria-label="Close dashboard">×</button></div>
+    <div class="overall-banner"><div class="eyebrow">TOTAL SEMESTER PROGRESS</div><div class="number" id="overallPercent">0%</div><div class="progress-track"><div class="progress-fill" id="overallProgress"></div></div><p id="overallSummary">0 of 56 items completed</p></div>
+    <div class="overview-list" id="overviewList"></div>
+    <button class="btn btn-secondary" id="closeOverallBottom" style="width:100%;margin-top:15px">← Back to subject slides</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const subjects = [
+ {code:"DSP",name:"DSP",icon:"〰️",color:"#a99aff",subtitle:"Assignments + practical journal",groups:[{name:"Assignments",items:5},{name:"Practicals",items:10}]},
+ {code:"EWT",name:"EWT",icon:"📡",color:"#58d9f0",subtitle:"Assignments only",groups:[{name:"Assignments",items:5}]},
+ {code:"AC",name:"AC",icon:"〽️",color:"#ff9fba",subtitle:"Assignments + practical journal",groups:[{name:"Assignments",items:5},{name:"Practicals",items:12}]},
+ {code:"CSE",name:"CSE",icon:"💻",color:"#ffc46b",subtitle:"Assignments only",groups:[{name:"Assignments",items:5}]},
+ {code:"OEB",name:"OEB",icon:"🧩",color:"#76e5b1",subtitle:"Assignments only",groups:[{name:"Assignments",items:9}]},
+ {code:"MDM",name:"MDM",icon:"✳️",color:"#c4a3ff",subtitle:"Assignments only",groups:[{name:"Assignments",items:5}]}
+];
+const STORAGE_KEY = "sem5-submission-studio-v1";
+let active = 0;
+let editing = false;
+let state = loadState();
+function emptySubject(s){const checks={};s.groups.forEach(g=>{for(let i=1;i<=g.items;i++)checks[g.name+"-"+i]=false});return {checks,saved:false};}
+function loadState(){
+  let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")}catch(e){}
+  return subjects.map((s,i)=>{const base=emptySubject(s);if(saved&&saved[i]&&saved[i].checks){base.checks={...base.checks,...saved[i].checks};base.saved=!!saved[i].saved;}return base;});
+}
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){showToast("Browser storage is unavailable. Keep this page in the same browser.");}}
+function allItems(s){return s.groups.reduce((n,g)=>n+g.items,0)}
+function countDone(i){return Object.values(state[i].checks).filter(Boolean).length}
+function pct(i){return Math.round(countDone(i)/allItems(subjects[i])*100)}
+function totals(){return subjects.reduce((a,s,i)=>({done:a.done+countDone(i),total:a.total+allItems(s)}),{done:0,total:0})}
+function esc(str){return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+ const s=subjects[active],st=state[active],p=pct(active),done=countDone(active),total=allItems(s);
+ document.getElementById("slideCount").textContent=`SUBJECT ${String(active+1).padStart(2,"0")} / 06`;
+ document.getElementById("prevBtn").disabled=active===0;document.getElementById("nextBtn").disabled=active===subjects.length-1;
+ document.getElementById("subjectCard").style.setProperty("--accent",s.color);
+ let html=`<div class="card-head"><div style="display:flex;gap:13px;align-items:center;min-width:0"><div class="subject-icon">${s.icon}</div><div><div class="subject-code">${s.code}</div><h2 class="subject-name">${esc(s.name)}</h2><p class="subject-subtitle">${esc(s.subtitle)}</p></div></div><span class="status ${editing?'editing':'saved'}">${editing?'✎ EDITING':st.saved?'✓ SAVED':'🔒 LOCKED'}</span></div>`;
+ html+=`<div class="card-progress"><div class="progress-meta"><span>Subject completion</span><strong>${p}%</strong></div><div class="progress-track"><div class="progress-fill" style="width:${p}%"></div></div><div class="progress-meta" style="margin-top:8px;color:var(--muted)"><span>${done} of ${total} completed</span><span>${done===total?'All done ✨':total-done+' left'}</span></div></div>`;
+ s.groups.forEach((g,gi)=>{const gd=Array.from({length:g.items},(_,k)=>st.checks[g.name+"-"+(k+1)]).filter(Boolean).length;
+ html+=`<div class="section-label"><span>${g.name}</span><span>${gd} / ${g.items} completed</span></div><div class="check-grid">`;
+ for(let n=1;n<=g.items;n++){const key=g.name+"-"+n,checked=!!st.checks[key];html+=`<label class="check-item"><input type="checkbox" data-key="${esc(key)}" ${checked?"checked":""} ${editing?"":"disabled"}><span class="item-title">${g.name==="Assignments"?"Assignment":"Practical"} ${String(n).padStart(2,"0")}<span class="item-sub">${checked?"Completed":"Not completed"}</span></span></label>`;}
+ html+="</div>";});
+ html+=`<div class="actions">${editing?`<button class="btn btn-secondary" id="cancelEdit">Cancel</button><button class="btn btn-primary" id="saveBtn">✓ &nbsp; Save &amp; lock</button>`:`<button class="btn btn-primary" id="editBtn">✎ &nbsp; Edit subject</button>`}</div>`;
+ html+=`<p class="lock-note">${editing?"You're in edit mode. Save to lock this subject, or cancel to discard changes made in this edit session.":st.saved?"This subject is saved and locked. Tap Edit subject whenever you need to update it.":"This subject is locked until you tap Edit subject."}</p>`;
+ document.getElementById("subjectCard").innerHTML=html;
+ document.getElementById("dots").innerHTML=subjects.map((x,i)=>`<button class="dot ${i===active?'active':''}" data-slide="${i}" aria-label="Open ${x.code} slide" style="${i===active?'background:'+x.color:''}"></button>`).join("");
+ document.getElementById("statDone").textContent=totals().done;document.getElementById("statTotal").textContent=totals().total;document.getElementById("statPercent").textContent=Math.round(totals().done/totals().total*100)+"%";document.getElementById("topProgress").style.width=Math.round(totals().done/totals().total*100)+"%";
+ document.querySelectorAll("[data-key]").forEach(input=>input.addEventListener("change",()=>{if(!editing)return;st.checks[input.dataset.key]=input.checked;render();}));
+ document.getElementById("editBtn")?.addEventListener("click",()=>{editing=true;editSnapshot=JSON.stringify(state[active]);render();});
+ document.getElementById("saveBtn")?.addEventListener("click",()=>{editing=false;state[active].saved=true;persist();render();showToast("✓ "+s.code+" saved and locked");});
+ document.getElementById("cancelEdit")?.addEventListener("click",()=>{if(editSnapshot){state[active]=JSON.parse(editSnapshot)}editing=false;render();showToast("Changes in this edit session discarded");});
+ document.querySelectorAll("[data-slide]").forEach(b=>b.addEventListener("click",()=>goTo(Number(b.dataset.slide))));
+}
+let editSnapshot=null;
+function goTo(i){if(i<0||i>=subjects.length)return;if(editing){showToast("Save or cancel your edits before switching subjects");return;}active=i;render();window.scrollTo({top:0,behavior:"smooth"});}
+document.getElementById("prevBtn").addEventListener("click",()=>goTo(active-1));
+document.getElementById("nextBtn").addEventListener("click",()=>goTo(active+1));
+function openOverall(){if(editing){showToast("Save or cancel your edits before opening the dashboard");return;}renderOverall();document.getElementById("overallModal").classList.add("open");document.body.style.overflow="hidden";}
+function closeOverall(){document.getElementById("overallModal").classList.remove("open");document.body.style.overflow="";}
+document.getElementById("overallBtn").addEventListener("click",openOverall);
+document.getElementById("closeOverall").addEventListener("click",closeOverall);
+document.getElementById("closeOverallBottom").addEventListener("click",closeOverall);
+document.getElementById("overallModal").addEventListener("click",e=>{if(e.target.id==="overallModal")closeOverall()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeOverall();if(e.key==="ArrowRight"&&!document.getElementById("overallModal").classList.contains("open"))goTo(active+1);if(e.key==="ArrowLeft"&&!document.getElementById("overallModal").classList.contains("open"))goTo(active-1)});
+function renderOverall(){
+ const t=totals(),p=Math.round(t.done/t.total*100);document.getElementById("overallPercent").textContent=p+"%";document.getElementById("overallProgress").style.width=p+"%";document.getElementById("overallSummary").textContent=`${t.done} of ${t.total} items completed • ${t.total-t.done} remaining`;
+ document.getElementById("overviewList").innerHTML=subjects.map((s,i)=>{const n=countDone(i),tot=allItems(s),pr=pct(i);return `<button class="overview-card" data-open-subject="${i}" style="--accent:${s.color}"><div class="overview-top"><span class="overview-icon">${s.icon}</span><span class="overview-percent">${pr}%</span></div><h3>${esc(s.code)} · ${esc(s.name)}</h3><p>${n} of ${tot} items complete</p><div class="progress-track"><div class="progress-fill" style="width:${pr}%"></div></div><span class="overview-status">${n===tot?"✓ COMPLETE":state[i].saved?"🔒 SAVED":"○ IN PROGRESS"}</span></button>`}).join("");
+ document.querySelectorAll("[data-open-subject]").forEach(b=>b.addEventListener("click",()=>{closeOverall();goTo(Number(b.dataset.openSubject))}));
+}
+let toastTimer;function showToast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2400)}
+render();
+</script>
+</body>
+</html>
